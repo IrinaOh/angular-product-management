@@ -26,6 +26,16 @@ export class ProductListComponent {
             "price": 32.99,
             "starRating": 4.2,
             "imageUrl": "https://openclipart.org/image/300px/svg/"
+        },
+        {
+            "productId": 4,
+            "productName": "Garden Cart",
+            "productCode": "GDN-0023",
+            "releaseDate": "March 18, 2016",
+            "description": "15 gallon capacity rolling garden",
+            "price": 32.99,
+            "starRating": 4.2,
+            "imageUrl": "https://openclipart.org/image/300px/svg/"
         }
     ];
 }
