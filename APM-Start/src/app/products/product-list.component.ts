@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
             "releaseDate": "March 18, 2016",
             "description": "15 gallon capacity rolling garden",
             "price": 2.99,
-            "starRating": 4.2,
+            "starRating": 3,
             "imageUrl": "http://clipart-library.com/img1/371666.png"
         },
         {
@@ -58,6 +58,10 @@ export class ProductListComponent implements OnInit {
     constructor() {
         this.filteredProducts = this.products;
         this.listFilter = 'cart';
+    }
+
+    onRatingClicked(message: string): void {
+        this.pageTitle = 'Product List: ' + message;
     }
 
     performFilter(filterBy: string): IProduct[] {
