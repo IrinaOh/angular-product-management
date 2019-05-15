@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product';
+import { ProductService } from './product.service';
 
 @Component({
     selector: 'pm-products',
@@ -11,6 +12,7 @@ export class ProductListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: 2;
     showImage: boolean = false;
+    errorMessage: string;
 
     _listFilter: string;
     get listFilter(): string {
@@ -22,42 +24,9 @@ export class ProductListComponent implements OnInit {
     }
 
     filteredProducts: IProduct[];
-    products: IProduct[] = [
-        {
-            "productId": 2,
-            "productName": "Garden Cart",
-            "productCode": "GDN-0023",
-            "releaseDate": "March 18, 2016",
-            "description": "15 gallon capacity rolling garden",
-            "price": 32.99,
-            "starRating": 4.2,
-            "imageUrl": "http://clipart-library.com/images/8ixrxEXAT.jpg"
-        },
-        {
-            "productId": 3,
-            "productName": "Garden Scissors",
-            "productCode": "GDN-0023",
-            "releaseDate": "March 18, 2016",
-            "description": "15 gallon capacity rolling garden",
-            "price": 2.99,
-            "starRating": 3,
-            "imageUrl": "http://clipart-library.com/img1/371666.png"
-        },
-        {
-            "productId": 4,
-            "productName": "Garden Shovel",
-            "productCode": "GDN-0023",
-            "releaseDate": "March 18, 2016",
-            "description": "15 gallon capacity rolling garden",
-            "price": 5.95,
-            "starRating": 4.2,
-            "imageUrl": "http://clipart-library.com/img1/1445505.png"
-        }
-    ];
+    products: IProduct[] = [];
 
-    constructor() {
-        this.filteredProducts = this.products;
-        this.listFilter = 'cart';
+    constructor(private productService: ProductService) {
     }
 
     onRatingClicked(message: string): void {
@@ -74,6 +43,12 @@ export class ProductListComponent implements OnInit {
         this.showImage = !this.showImage;
     }
     ngOnInit(): void {
-        console.log('In OnInit');
+        this.productService.getProducts().subscribe(
+            products => {
+                this.products = products;
+                this.filteredProducts = this.products;
+            },
+            error => this.errorMessage = <any>error
+        );
     }
 }
